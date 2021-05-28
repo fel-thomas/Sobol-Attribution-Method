@@ -1,0 +1,5 @@
+matplotlib
+numpy
+opencv-python
+scipy>=1.7.0
+tensorflow
