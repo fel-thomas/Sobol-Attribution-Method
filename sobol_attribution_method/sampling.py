@@ -94,8 +94,11 @@ class ScipySobolSequence(Sampler):
     https://www.sciencedirect.com/science/article/abs/pii/0041555367901449
     """
 
+    def __init__(self, scramble=False):
+        self.scramble = scramble
+
     def __call__(self, dimension, nb_design):
-        sampler = qmc.Sobol(dimension*2, scramble=False)
+        sampler = qmc.Sobol(dimension*2, scramble=self.scramble)
         ab = sampler.random(nb_design)
         a, b = ab[:, :dimension], ab[:, dimension:]
         c = self._build_replicated_design(a, b)
@@ -112,8 +115,11 @@ class HaltonSequence(Sampler):
     https://link.springer.com/article/10.1007/BF01386213
     """
 
+    def __init__(self, scramble=False):
+        self.scramble = scramble
+
     def __call__(self, dimension, nb_design):
-        sampler = qmc.Halton(dimension*2, scramble=False)
+        sampler = qmc.Halton(dimension*2, scramble=self.scramble)
         ab = sampler.random(nb_design)
         a, b = ab[:, :dimension], ab[:, dimension:]
         c = self._build_replicated_design(a, b)
