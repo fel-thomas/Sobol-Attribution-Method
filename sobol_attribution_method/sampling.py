@@ -143,3 +143,17 @@ class LHSampler(Sampler):
         c = self._build_replicated_design(a, b)
 
         return np.concatenate([a, b, c], 0)
+
+
+class MCSampler(Sampler):
+    """
+    Pure Monte-Carlo sampler.
+    """
+
+    def __call__(self, dimension, nb_design):
+        ab = np.random.random((nb_design, dimension*2))
+        ab = np.array(ab, np.float32)
+        a, b = ab[:, :dimension], ab[:, dimension:]
+        c = self._build_replicated_design(a, b)
+
+        return np.concatenate([a, b, c], 0)
