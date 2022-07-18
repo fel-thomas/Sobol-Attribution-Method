@@ -94,12 +94,12 @@ class SobolAttributionMethod:
                                                                 perturbator, input_shape)
 
                 # store the results
-                batch_y = batch_y.numpy()[:, label]
+                batch_y = batch_y[:, label].cpu().detach().numpy()
                 y[start_index:end_index] = batch_y
 
             # get the total sobol indices
             sti = self.estimator(self.masks, y, self.nb_design)
-            sti = resize(sti, input_shape)
+            sti = resize(sti[0], input_shape)
 
             explanations.append(sti)
 
